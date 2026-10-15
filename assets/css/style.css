@@ -45,20 +45,21 @@
 /* ---------- Variables ---------- */
 :root {
   /* Matière */
-  --carton: #b5a07f;
-  --carton-onglet: #a58f6f;
-  --carton-onglet-survol: #bba685;
+  --carton: #ddebfa;
+  --carton-onglet: #f9f0da;
+  --carton-onglet-survol: #cbc1ae;
   --carton-clair: #d8cfbf;
-  --feuille: #f7f3ea;
+  --feuille: #f9f0da;
   --feuille-claire: #fffdf8;
   --filet: #cfc5b1;
-  --filet-fort: #8c7a5e;
+  --filet-fort: #a39782;
+  
 
   /* ===== COULEUR UNIQUE (profonde, pas pastel) =====
      Réservée à : l'onglet actif, la bande autour de la feuille, les tampons
      (et le survol des liens). Modifier cette valeur la change partout.
      Idées : bleu encre #25406a · bordeaux #6e2a35 · vert sapin #2b5240 */
-  --couleur-principale: #25406a;
+  --couleur-principale: #4b6999;
   /* Épaisseur de la bande autour de la feuille */
   --bande: 0.4rem;
 
@@ -595,6 +596,337 @@ main {
 }
 .pied a:hover {
   color: var(--couleur-principale);
+
+}
+
+/* =========================================================
+   Phase 2 : pages projet, CV, formulaire, 404
+   ========================================================= */
+
+/* ---------- En-tête de page (réutilise .chapeau, .fiche, .marge) ---------- */
+.page-tete {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+  gap: var(--e-5) var(--e-6);
+  padding: var(--e-5) 0 var(--e-5);
+  align-items: start;
+}
+.page-tete h1 {
+  margin-top: var(--e-2);
+  font-size: clamp(2.5rem, 4.2vw, 4.25rem);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+}
+.page-tete .fiche {
+  margin-top: var(--e-4);
+}
+.fiche--mono dd {
+  font-family: var(--font-mono);
+  font-size: 0.9375rem;
+}
+.page-tete .tampon {
+  align-self: flex-start;
+  margin-left: var(--e-2);
+}
+
+/* ---------- Bloc : titre à gauche, corps à droite ---------- */
+.bloc {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 8fr);
+  gap: var(--e-3) var(--e-6);
+  padding: var(--e-4) 0 var(--e-5);
+  border-top: 1px solid var(--filet-fort);
+}
+.bloc-titre h2 {
+  margin-top: var(--e-1);
+  font-size: var(--t-h2);
+  line-height: 1.1;
+}
+.bloc-corps {
+  max-width: 66ch;
+}
+.bloc-corps--large {
+  max-width: none;
+}
+.bloc-corps > * + * {
+  margin-top: var(--e-2);
+}
+
+/* Ma part : responsabilité directe / appui */
+.part {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--e-4);
+}
+.part > div + div {
+  padding-left: var(--e-4);
+  border-left: 1px solid var(--filet);
+}
+.part h3 {
+  font-size: 1.375rem;
+  line-height: 1.2;
+}
+.part ul {
+  margin: var(--e-1) 0 0;
+  padding-left: 1.1rem;
+}
+.part li + li {
+  margin-top: 0.4rem;
+}
+
+/* Méthode : étapes numérotées */
+.etapes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: etape;
+  border-top: 1px solid var(--filet-fort);
+}
+.etapes li {
+  counter-increment: etape;
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 1fr);
+  gap: var(--e-2);
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--filet);
+}
+.etapes li::before {
+  content: counter(etape, decimal-leading-zero);
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  letter-spacing: 0.06em;
+  color: var(--encre-douce);
+  padding-top: 0.35em;
+}
+
+/* Indicateurs : chiffres lisibles, sans cartes */
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  border-top: 2px solid var(--encre);
+  border-bottom: 1px solid var(--filet-fort);
+}
+.kpis > div {
+  padding: var(--e-3) var(--e-3) var(--e-3);
+  border-left: 1px solid var(--filet);
+}
+.kpis > div:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+.kpis dt {
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--encre-douce);
+}
+.kpis dd {
+  margin: 0;
+}
+.kpi-valeur {
+  margin-top: var(--e-1) !important;
+  font-size: clamp(2.25rem, 3.6vw, 3.75rem);
+  font-weight: 600;
+  line-height: 1.05;
+}
+.kpi-contexte {
+  margin-top: var(--e-1) !important;
+  font-size: 1rem;
+  line-height: 1.45;
+  color: var(--encre-douce);
+}
+
+/* Recommandation / commentaire cité */
+.reco {
+  margin: 0;
+  padding-left: var(--e-3);
+  border-left: 3px solid var(--filet-fort);
+}
+.reco blockquote {
+  margin: 0;
+  font-size: var(--t-chapeau);
+  line-height: 1.4;
+}
+.reco figcaption {
+  margin-top: var(--e-2);
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  letter-spacing: 0.04em;
+  color: var(--encre-douce);
+}
+.reco + .reco {
+  margin-top: var(--e-4);
+}
+
+/* Visuels + vidéo */
+.galerie {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--e-4);
+  align-items: start;
+}
+.video {
+  margin: 0;
+}
+.video-bouton {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.video-bouton:hover .visuel {
+  background-color: var(--carton-onglet-survol);
+}
+.video iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border: 0;
+}
+.video figcaption {
+  margin-top: var(--e-1);
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  color: var(--encre-douce);
+}
+
+/* ---------- Boutons (éléments interactifs) ---------- */
+.bouton {
+  display: inline-block;
+  padding: 0.7rem 1.2rem;
+  border: 2px solid var(--encre);
+  background: transparent;
+  color: var(--encre);
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+}
+.bouton:not([aria-disabled="true"]):hover {
+  background: var(--encre);
+  color: var(--feuille);
+}
+.bouton[aria-disabled="true"] {
+  border-style: dashed;
+  cursor: default;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e-2);
+  align-items: center;
+}
+
+/* ---------- CV ---------- */
+.xp {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 8fr);
+  gap: var(--e-2) var(--e-6);
+  padding: var(--e-3) 0;
+  border-bottom: 1px solid var(--filet);
+}
+.xp:first-of-type {
+  border-top: 1px solid var(--filet-fort);
+}
+.xp h3 {
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+.xp .texte {
+  margin-top: var(--e-1);
+}
+
+/* ---------- Formulaire ---------- */
+.formulaire {
+  display: grid;
+  gap: var(--e-3);
+  max-width: 46rem;
+}
+.formulaire label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.formulaire input,
+.formulaire textarea {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--filet-fort);
+  border-radius: 0;
+  background: var(--feuille-claire);
+  color: var(--encre);
+  font: inherit;
+  font-size: 1.0625rem;
+}
+.formulaire textarea {
+  min-height: 9rem;
+  resize: vertical;
+}
+.formulaire ::placeholder {
+  color: var(--encre-douce);
+  opacity: 0.8;
+}
+.aide {
+  margin-top: 0.3rem;
+  font-size: 0.9375rem;
+  color: var(--encre-douce);
+}
+.statut {
+  font-weight: 600;
+}
+.piege {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+dialog.confirmation {
+  max-width: 30rem;
+  padding: var(--e-4);
+  border: 1px solid var(--filet-fort);
+  background: var(--feuille);
+  color: var(--encre);
+}
+dialog.confirmation::backdrop {
+  background: rgb(33 30 25 / 0.5);
+}
+dialog.confirmation .actions {
+  margin-top: var(--e-3);
+}
+
+/* ---------- Page 404 / texte légal ---------- */
+.page-simple {
+  max-width: 44rem;
+  padding: var(--e-5) 0 var(--e-6);
+}
+.page-simple h1 {
+  margin-top: var(--e-2);
+  font-size: clamp(2.5rem, 4.2vw, 4.25rem);
+  line-height: 1.05;
+}
+.page-simple h2 {
+  margin-top: var(--e-4);
+  font-size: var(--t-h3);
+  line-height: 1.15;
+}
+.page-simple p {
+  margin-top: var(--e-2);
+}
+.page-simple .tampon {
+  margin-top: var(--e-3);
 }
 
 /* ---------- Changement de page : amélioration progressive ---------- */
