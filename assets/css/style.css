@@ -45,32 +45,26 @@
 /* ---------- Variables ---------- */
 :root {
   /* Matière */
-  --carton: #c9bfae;
-  --carton-onglet: #b9ae9a;
+  --carton: #b5a07f;
+  --carton-onglet: #a58f6f;
+  --carton-onglet-survol: #bba685;
   --carton-clair: #d8cfbf;
   --feuille: #f7f3ea;
   --feuille-claire: #fffdf8;
   --filet: #cfc5b1;
-  --filet-fort: #a39782;
+  --filet-fort: #8c7a5e;
 
-  /* ===== COULEURS DES MARQUE-PAGES =====
-     Une couleur par section. Modifier une valeur ici la change partout :
-     l'onglet, la bande autour de la feuille et les accents de la page. */
-  --couleur-accueil: #e6c26e;
-  --couleur-startup: #93c79f;
-  --couleur-sot: #8fb8e0;
-  --couleur-cv: #bfa9db;
-  /* Couleur de la page en cours (définie par la classe du <body>) */
-  --couleur-page: var(--couleur-accueil);
+  /* ===== COULEUR UNIQUE (profonde, pas pastel) =====
+     Réservée à : l'onglet actif, la bande autour de la feuille, les tampons
+     (et le survol des liens). Modifier cette valeur la change partout.
+     Idées : bleu encre #25406a · bordeaux #6e2a35 · vert sapin #2b5240 */
+  --couleur-principale: #25406a;
   /* Épaisseur de la bande autour de la feuille */
-  --bande: 0.5rem;
+  --bande: 0.4rem;
 
   /* Encre */
   --encre: #211e19;
   --encre-douce: #5b5448;
-
-  /* Accent (tampons, survol des liens) */
-  --accent: #a3392b;
 
   /* Repères : placeholders et focus */
   --repere: #f1de8a;
@@ -173,12 +167,6 @@ a {
   outline-offset: 3px;
 }
 
-/* ---------- Couleur de la page en cours ---------- */
-.page-accueil { --couleur-page: var(--couleur-accueil); }
-.page-startup { --couleur-page: var(--couleur-startup); }
-.page-sot { --couleur-page: var(--couleur-sot); }
-.page-cv { --couleur-page: var(--couleur-cv); }
-
 /* ---------- Lien d'évitement ---------- */
 .evitement {
   position: absolute;
@@ -208,10 +196,11 @@ a {
 .onglets ul {
   list-style: none;
   margin: 0;
-  padding: 0 var(--e-2);
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  align-items: end;
+  padding: 0;
+  display: flex;
+  justify-content: center; /* centrés sur la page, pas sur le fond */
+  align-items: flex-end;
+  gap: 0.35rem;
 }
 .onglets li {
   display: flex;
@@ -222,7 +211,7 @@ a {
   position: relative;
   display: block;
   padding: 0.55rem 1.4rem 0.5rem;
-  background-color: var(--c);
+  background-color: var(--carton-onglet);
   background-image: var(--grain);
   border: 1px solid var(--filet-fort);
   border-bottom: 0;
@@ -235,27 +224,22 @@ a {
   white-space: nowrap;
   transition: background-color 0.15s;
 }
-/* Une couleur par onglet */
-.onglets a[data-onglet="accueil"] { --c: var(--couleur-accueil); }
-.onglets a[data-onglet="startup"] { --c: var(--couleur-startup); }
-.onglets a[data-onglet="sot"] { --c: var(--couleur-sot); }
-.onglets a[data-onglet="cv"] { --c: var(--couleur-cv); }
-
-/* Survol : l'onglet s'éclaircit (le texte reste en encre, contraste conservé) */
+/* Survol d'un onglet inactif : il s'éclaircit */
 .onglets a:hover {
-  background-color: color-mix(in srgb, var(--c) 70%, var(--feuille-claire));
+  background-color: var(--carton-onglet-survol);
 }
-/* Onglet actif : plus haut, texte plus lourd, fondu dans la bande de la feuille */
+/* Onglet actif : couleur unique, plus haut, texte plus lourd, fondu dans la bande */
 .onglets a[aria-current="page"] {
   z-index: 2;
   margin-bottom: calc(var(--bande) * -1);
   padding-top: 0.95rem;
   padding-bottom: calc(0.5rem + var(--bande));
+  background-color: var(--couleur-principale);
+  background-image: none;
+  border-color: var(--couleur-principale);
+  color: var(--feuille);
   font-weight: 500;
   cursor: default;
-}
-.onglets a[aria-current="page"]:hover {
-  background-color: var(--c);
 }
 
 /* ---------- Feuille ---------- */
@@ -266,7 +250,7 @@ a {
   flex-direction: column;
   background-color: var(--feuille);
   background-image: var(--grain);
-  border: var(--bande) solid var(--couleur-page);
+  border: var(--bande) solid var(--couleur-principale);
   border-radius: var(--rayon-feuille);
   box-shadow: 0 0 0 1px var(--filet-fort), var(--ombre-feuille);
 }
@@ -321,7 +305,7 @@ a {
   text-underline-offset: 0.25em;
 }
 .langue a:hover {
-  color: var(--accent);
+  color: var(--couleur-principale);
 }
 
 main {
@@ -537,7 +521,7 @@ main {
   outline-offset: 6px;
 }
 .entree:hover .lien {
-  color: var(--accent);
+  color: var(--couleur-principale);
 }
 
 /* ---------- Tampon : vrai texte, purement décoratif ---------- */
@@ -547,8 +531,8 @@ main {
   display: inline-block;
   margin: var(--e-2) 0 0;
   padding: 0.3rem 0.75rem;
-  border: 3px double var(--accent);
-  color: var(--accent);
+  border: 3px double var(--couleur-principale);
+  color: var(--couleur-principale);
   font-family: var(--font-mono);
   font-size: 0.9375rem;
   font-weight: 500;
@@ -582,7 +566,7 @@ main {
   content: none;
 }
 .fin .lien:hover {
-  color: var(--accent);
+  color: var(--couleur-principale);
 }
 .fin .lien:focus-visible {
   outline: 3px solid var(--focus);
@@ -610,7 +594,7 @@ main {
   text-underline-offset: 0.25em;
 }
 .pied a:hover {
-  color: var(--accent);
+  color: var(--couleur-principale);
 }
 
 /* ---------- Changement de page : amélioration progressive ---------- */
