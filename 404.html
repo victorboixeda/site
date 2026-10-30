@@ -1,58 +1,64 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Page introuvable · Victor Boixeda</title>
-  <meta name="robots" content="noindex">
-  <link rel="preload" href="/assets/fonts/newsreader-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/fonts/ibm-plex-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page introuvable – Victor Boixeda</title>
+<meta name="description" content="Page introuvable.">
+<meta name="robots" content="noindex">
+<link rel="preload" href="/assets/fonts/space-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
-  <a class="evitement" href="#contenu">Aller au contenu</a>
+<a class="skip" href="#contenu">Aller au contenu</a>
 
-  <div class="dossier">
-
-    <header>
-      <nav class="onglets" aria-label="Navigation principale">
-        <ul>
-          <li><a href="/fr/">Accueil</a></li>
-          <li><a href="/fr/projet-startup/">Projet start-up</a></li>
-          <li><a href="/fr/projet-sea-of-thieves/">Sea of Thieves</a></li>
-          <li><a href="/fr/cv-contact/">CV et contact</a></li>
-        </ul>
-      </nav>
-    </header>
-
-    <div class="feuille">
-      <div class="feuille-interieur">
-
-        <div class="bandeau">
-          <p>Dossier n° 01 · Pièce manquante</p>
-          <div class="bandeau-droite"><p>Erreur 404</p></div>
-        </div>
-
-        <main id="contenu">
-          <section class="page-simple" aria-labelledby="titre-page">
-            <p class="meta">Erreur 404</p>
-            <!-- TEXTE : titre -->
-            <h1 id="titre-page">Cette page n'existe pas</h1>
-            <!-- TEXTE : explication + retour -->
-            <p>Le lien est peut-être ancien, ou l'adresse mal saisie.</p>
-            <p><a class="lien" href="/fr/">Revenir à l'accueil du dossier</a></p>
-            <p class="tampon">Introuvable</p>
-          </section>
-        </main>
-
-        <footer class="pied">
-          <p>© 2026 Victor Boixeda</p>
-          <p><a href="/fr/mentions-legales/">Mentions légales</a></p>
-        </footer>
-
-      </div>
-    </div>
-
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="logo" href="/fr/">Victor Boixeda</a>
+    <nav aria-label="Navigation principale">
+      <ul>
+        <li><a href="/fr/">Accueil</a></li>
+        <li><a href="/fr/projet-startup/">Projet start-up</a></li>
+        <li><a href="/fr/projet-sea-of-thieves/">Sea of Thieves</a></li>
+        <li><a href="/fr/cv-contact/">CV et contact</a></li>
+      </ul>
+    </nav>
+    <p class="lang"><span aria-current="true">FR</span> / <a href="/en/" hreflang="en" lang="en">EN</a></p>
   </div>
+</header>
+
+<main id="contenu" class="page">
+  <div class="wrap">
+    <p class="meta meta--tag">Erreur 404</p>
+    <h1>Page introuvable</h1>
+    <p class="t-desc">Cette adresse ne mène à aucune page du site.</p>
+    <a class="guide" href="/fr/"><svg class="stroke" aria-hidden="true" focusable="false"><use href="/assets/svg/sprite.svg##arrow-straight" width="100%" height="100%"/></svg><span>Retourner à l'accueil</span></a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap foot">
+    <div>
+      <a class="logo" href="/fr/">Victor Boixeda</a>
+      <p>Dernière mise à jour : <time datetime="2026-10-30">30 octobre 2026</time></p>
+    </div>
+    <div>
+      <p class="meta">Contact</p>
+      <ul>
+        <li><a class="btn" href="/fr/cv-contact/#contact">Afficher l'e-mail</a></li>
+        <li><span class="ph">[LinkedIn]</span></li>
+      </ul>
+    </div>
+    <div>
+      <p class="meta">Informations</p>
+      <ul>
+        <li><a href="/fr/mentions-legales/">Mentions légales</a></li>
+        <li><span aria-current="true">Français</span> · <a href="/en/" hreflang="en" lang="en">English</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+<script src="/assets/js/main.js" defer></script>
 </body>
 </html>

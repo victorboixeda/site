@@ -1,56 +1,24 @@
-/* boixeda.com : comportements partagés (vanilla, sans dépendance) */
-(function () {
-  "use strict";
-
-  /* 1. E-mail révélé au clic (jamais écrit en clair dans le HTML) */
-  document.querySelectorAll("[data-revele]").forEach(function (bouton) {
-    bouton.addEventListener("click", function () {
-      var adresse = bouton.dataset.a + "@" + bouton.dataset.b;
-      var lien = document.createElement("a");
-      lien.href = "mailto:" + adresse;
-      lien.textContent = adresse;
-      lien.className = "lien-mail";
-      bouton.replaceWith(lien);
-      lien.focus();
-    });
+/* Révéler l'e-mail : l'adresse n'existe pas en clair dans le HTML. */
+document.querySelectorAll('[data-reveal]').forEach(function (b) {
+  b.addEventListener('click', function () {
+    var a = b.dataset.u + '@' + b.dataset.d;
+    var l = document.createElement('a');
+    l.href = 'mailto:' + a;
+    l.textContent = a;
+    b.replaceWith(l);
+    l.focus();
   });
-
-  /* 2. Vidéo chargée au clic (YouTube sans cookies ou Vimeo) */
-  document.querySelectorAll(".video[data-embed]").forEach(function (bloc) {
-    var bouton = bloc.querySelector(".video-bouton");
-    if (!bouton) return;
-    bouton.addEventListener("click", function () {
-      var src = bloc.dataset.embed;
-      if (!/^https:\/\//.test(src)) return; /* placeholder : rien ne se charge */
-      var iframe = document.createElement("iframe");
-      iframe.src = src;
-      iframe.title = bloc.dataset.titre || "Vidéo";
-      iframe.allow = "fullscreen; picture-in-picture";
-      iframe.allowFullscreen = true;
-      bouton.replaceWith(iframe);
-      iframe.focus();
-    });
+});
+/* Vidéo chargée au clic : aucun contenu tiers avant. data-src = URL d'embed sans cookies (youtube-nocookie.com ou Vimeo dnt=1). */
+document.querySelectorAll('[data-video]').forEach(function (b) {
+  b.addEventListener('click', function () {
+    if (!b.dataset.src) return;
+    var f = document.createElement('iframe');
+    f.src = b.dataset.src;
+    f.title = b.dataset.title || 'Vidéo';
+    f.allow = 'encrypted-media; picture-in-picture';
+    f.allowFullscreen = true;
+    b.replaceWith(f);
+    f.focus();
   });
-
-  /* 3. Formulaire : honeypot + confirmation avant envoi */
-  document.querySelectorAll("form[data-confirme]").forEach(function (form) {
-    var dialogue = document.getElementById(form.dataset.confirme);
-    form.addEventListener("submit", function (e) {
-      var piege = form.querySelector(".piege input");
-      if (piege && piege.value) { e.preventDefault(); return; } /* robot */
-      if (form.dataset.ok === "1" || !dialogue || !dialogue.showModal) return;
-      e.preventDefault();
-      if (!form.reportValidity()) return;
-      dialogue.showModal();
-    });
-    if (!dialogue) return;
-    dialogue.querySelector("[data-oui]").addEventListener("click", function () {
-      dialogue.close();
-      form.dataset.ok = "1";
-      form.requestSubmit();
-    });
-    dialogue.querySelector("[data-non]").addEventListener("click", function () {
-      dialogue.close();
-    });
-  });
-})();
+});
