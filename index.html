@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Victor Boixeda</title>
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://boixeda.com/fr/">
+<link rel="alternate" hreflang="fr" href="https://boixeda.com/fr/">
+<!-- EN : décommenter quand /en/ existe
+<link rel="alternate" hreflang="en" href="https://boixeda.com/en/"> -->
+<link rel="alternate" hreflang="x-default" href="https://boixeda.com/fr/">
+<script>
+  /* Redirection selon la langue du navigateur.
+     Passer EN_PRET à true quand la version anglaise (/en/) est en ligne :
+     d'ici là, tout le monde est envoyé vers /fr/ (pas de 404 pour les anglophones). */
+  (function () {
+    var EN_PRET = false;
+    var langues = navigator.languages || [navigator.language || 'fr'];
+    var premiere = String(langues[0] || 'fr').toLowerCase();
+    var cible = (EN_PRET && premiere.indexOf('fr') !== 0) ? '/en/' : '/fr/';
+    location.replace(cible + location.search + location.hash);
+  })();
+</script>
+<!-- Sans JavaScript : redirection vers le français -->
+<noscript><meta http-equiv="refresh" content="0; url=/fr/"></noscript>
+</head>
+<body>
+<p><a href="/fr/">Victor Boixeda, site en français</a></p>
+</body>
+</html>
