@@ -1,0 +1,17 @@
+# Notes privées (CV, rapports, brief) : jamais en ligne
+_contexte/
+
+# Originaux des images : le site n'utilise que assets/images/web/
+# (png/ contient le packaging avec le nom de la marque et le flyer avec les coordonnées)
+assets/images/jpg/
+assets/images/png/
+
+# Vidéos sources : trop lourdes pour GitHub (> 100 Mo), la vidéo est sur YouTube
+assets/mp4/
+*.mp4
+*.mov
+
+# Fichiers système
+Thumbs.db
+desktop.ini
+.DS_Store

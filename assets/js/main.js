@@ -6,6 +6,8 @@
   var root = document.documentElement;
   var media = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
   var buttons = document.querySelectorAll('[data-theme-toggle]');
+  var en = root.lang === 'en'; /* libellés du bouton selon la langue de la page */
+  var L = en ? { light: 'Light mode', dark: 'Dark mode' } : { light: 'Mode clair', dark: 'Mode sombre' };
 
   function isDark() {
     var t = root.getAttribute('data-theme');
@@ -17,7 +19,7 @@
     buttons.forEach(function (b) {
       b.setAttribute('data-dark', dark ? 'true' : 'false');
       var l = b.querySelector('.theme-l');
-      if (l) l.textContent = dark ? 'Mode clair' : 'Mode sombre';
+      if (l) l.textContent = dark ? L.light : L.dark;
     });
   }
   function apply(t) {
@@ -62,7 +64,8 @@ document.querySelectorAll('[data-reveal-tel]').forEach(function (b) {
     var n = b.dataset.a + ' ' + b.dataset.b;
     var l = document.createElement('a');
     l.href = 'tel:+33' + n.replace(/\s/g, '').slice(1);
-    l.textContent = n;
+    /* en anglais : format international (+33 6 …) */
+    l.textContent = document.documentElement.lang === 'en' ? '+33 ' + n.slice(1) : n;
     b.replaceWith(l);
     l.focus();
   });
@@ -73,8 +76,8 @@ document.querySelectorAll('[data-video]').forEach(function (b) {
     if (!b.dataset.src) return;
     var f = document.createElement('iframe');
     f.src = b.dataset.src;
-    f.title = b.dataset.title || 'Vidéo';
-    f.allow = 'encrypted-media; picture-in-picture';
+    f.title = b.dataset.title || (document.documentElement.lang === 'en' ? 'Video' : 'Vidéo');
+    f.allow = 'autoplay; encrypted-media; picture-in-picture'; /* autoplay : la vidéo démarre dès ce premier clic */
     f.allowFullscreen = true;
     b.replaceWith(f);
     f.focus();

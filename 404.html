@@ -4,24 +4,31 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<!-- Mode sombre : applique le choix enregistré avant l'affichage (pas de flash) -->
-<script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<!-- Avant l'affichage : thème enregistré, langue (adresse en /en/ ou ?lang=en) et visite volontaire (lien « Se perdre (exprès) » du pied de page).
+     GitHub Pages sert ce fichier pour toute adresse inconnue, en gardant l'adresse demandée : c'est elle qui donne la langue. -->
+<script>(function(){var r=document.documentElement;try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')r.setAttribute('data-theme',t)}catch(e){}
+var en=location.pathname.indexOf('/en/')===0||/[?&]lang=en\b/.test(location.search);
+if(en){r.lang='en';r.classList.add('is-en');document.title='Page not found – Victor Boixeda'}
+if(/\/404(\.html)?$/.test(location.pathname))r.classList.add('is-curious')})()</script>
 <title>Page introuvable – Victor Boixeda</title>
 <meta name="description" content="Cette page n’existe pas ou a été déplacée.">
 <meta name="robots" content="noindex">
 <link rel="preload" href="/assets/fonts/space-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/css/style.css?v=2026112204">
+<link rel="preload" href="/assets/fonts/caveat-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/style.css?v=2026112212">
 </head>
 <body>
-<a class="skip" href="#contenu">Aller au contenu</a>
+<a class="skip l-fr" href="#contenu">Aller au contenu</a>
+<a class="skip l-en" href="#contenu" lang="en">Skip to content</a>
 
 <!-- En-tête + message occupent exactement un écran ; le pied de page n'apparaît qu'en faisant défiler -->
 <div class="e404-screen">
 <header class="site-header">
   <div class="wrap bar">
-    <a class="logo" href="/fr/">Victor Boixeda</a>
-    <nav aria-label="Navigation principale">
+    <a class="logo l-fr" href="/fr/">Victor Boixeda</a>
+    <a class="logo l-en" href="/en/">Victor Boixeda</a>
+    <nav class="l-fr" aria-label="Navigation principale">
       <ul>
         <li><a href="/fr/">Accueil</a></li>
         <li><a href="/fr/la-frequence-du-vivant/">La Fréquence du Vivant</a></li>
@@ -30,8 +37,18 @@
         <li><a href="/fr/cv-contact/">CV et contact</a></li>
       </ul>
     </nav>
+    <nav class="l-en" aria-label="Main navigation" lang="en">
+      <ul>
+        <li><a href="/en/">Home</a></li>
+        <li><a href="/en/la-frequence-du-vivant/">La Fréquence du Vivant</a></li>
+        <li><a href="/en/sea-of-thieves-france/">Sea of Thieves France</a></li>
+        <li><a href="/en/other-experience/">Other experience</a></li>
+        <li><a href="/en/resume-contact/">Resume and contact</a></li>
+      </ul>
+    </nav>
     <div class="tools">
-      <p class="lang"><span aria-current="true">FR</span> / <a href="/en/" hreflang="en" lang="en">EN</a></p>
+      <p class="lang l-fr"><span aria-current="true">FR</span> / <a href="/en/" hreflang="en" lang="en">EN</a></p>
+      <p class="lang l-en"><a href="/fr/" hreflang="fr" lang="fr">FR</a> / <span aria-current="true">EN</span></p>
       <button type="button" class="theme" data-theme-toggle hidden>
         <svg class="stroke i-moon" aria-hidden="true" focusable="false"><use href="/assets/svg/sprite.svg#moon"/></svg><svg class="stroke i-sun" aria-hidden="true" focusable="false"><use href="/assets/svg/sprite.svg#sun"/></svg><span class="theme-l">Mode sombre</span>
       </button>
@@ -47,13 +64,26 @@
     <svg class="stroke e404-d d--cone" aria-hidden="true" focusable="false"><use href="/assets/svg/sprite.svg#cone"/></svg>
 
     <div class="e404-core">
-      <p class="e404-num"><span class="sr">Erreur </span>404<svg class="stroke e404-spark" aria-hidden="true" focusable="false"><use href="/assets/svg/sprite.svg#spark"/></svg></p>
+      <p class="e404-num"><span class="sr l-fr">Erreur </span><span class="sr l-en">Error </span>404<svg class="stroke e404-spark" aria-hidden="true" focusable="false"><use href="/assets/svg/sprite.svg#spark"/></svg></p>
+      <!-- Visite volontaire (lien du pied de page) : petit clin d'œil, pour qu'on ne croie pas à un bug -->
+      <p class="hand e404-curious l-fr">Venu exprès&nbsp;? Bien vu, rien n’est cassé.</p>
+      <p class="hand e404-curious l-en" lang="en">Here on purpose? Nice find, nothing’s broken.</p>
       <!-- TEXTE -->
-      <h1>Cette page s’est perdue en chemin</h1>
-      <p class="t-lead">Pas d’inquiétude, rien n’est cassé de votre côté. L’adresse est peut-être mal saisie, ou la page a été déplacée.</p>
-      <div class="e404-go">
+      <div class="l-fr">
+        <h1>Cette page s’est perdue en chemin</h1>
+        <p class="t-lead">Pas d’inquiétude, rien n’est cassé de votre côté. L’adresse est peut-être mal saisie, ou la page a été déplacée.</p>
+      </div>
+      <div class="l-en" lang="en">
+        <h1>This page got lost along the way</h1>
+        <p class="t-lead">Don’t worry, nothing is broken on your end. The address may have a typo, or the page may have moved.</p>
+      </div>
+      <div class="e404-go l-fr">
         <p class="hand e404-hint" aria-hidden="true">Par ici<svg class="stroke" focusable="false"><use href="/assets/svg/sprite.svg#arrow-curve" width="100%" height="100%"/></svg></p>
         <a class="btn e404-btn" href="/fr/">Retourner à l’accueil</a>
+      </div>
+      <div class="e404-go l-en" lang="en">
+        <p class="hand e404-hint" aria-hidden="true">This way<svg class="stroke" focusable="false"><use href="/assets/svg/sprite.svg#arrow-curve" width="100%" height="100%"/></svg></p>
+        <a class="btn e404-btn" href="/en/">Back to the homepage</a>
       </div>
     </div>
 
@@ -65,24 +95,32 @@
 <footer class="site-footer">
   <div class="wrap foot">
     <div>
-      <a class="logo" href="/fr/">Victor Boixeda</a>
-      <p>Dernière mise à jour&nbsp;: <time datetime="2026-11-20">20 novembre 2026</time></p>
+      <a class="logo l-fr" href="/fr/">Victor Boixeda</a>
+      <a class="logo l-en" href="/en/">Victor Boixeda</a>
+      <p class="l-fr">Dernière mise à jour&nbsp;: <time datetime="2026-11-22">22 novembre 2026</time></p>
+      <p class="l-en" lang="en">Last updated: <time datetime="2026-11-22">22 November 2026</time></p>
     </div>
     <div>
       <p class="meta">Contact</p>
       <ul>
-        <li><a class="btn" href="/fr/cv-contact/#contact">Me contacter</a></li>
+        <li class="l-fr"><a class="btn" href="/fr/cv-contact/#contact">Me contacter</a></li>
+        <li class="l-en" lang="en"><a class="btn" href="/en/resume-contact/#contact">Contact me</a></li>
       </ul>
     </div>
     <div>
-      <p class="meta">Informations</p>
-      <ul>
+      <p class="meta l-fr">Informations</p>
+      <p class="meta l-en" lang="en">Information</p>
+      <ul class="l-fr">
         <li><a href="/fr/mentions-legales/">Mentions légales</a></li>
         <li><span aria-current="true">Français</span> · <a href="/en/" hreflang="en" lang="en">English</a></li>
+      </ul>
+      <ul class="l-en" lang="en">
+        <li><a href="/en/legal-notice/">Legal notice</a></li>
+        <li><a href="/fr/" hreflang="fr" lang="fr">Français</a> · <span aria-current="true">English</span></li>
       </ul>
     </div>
   </div>
 </footer>
-<script src="/assets/js/main.js?v=2026112201" defer></script>
+<script src="/assets/js/main.js?v=2026112203" defer></script>
 </body>
 </html>
