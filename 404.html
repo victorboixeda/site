@@ -3,51 +3,75 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<!-- Mode sombre : applique le choix enregistré avant l'affichage (pas de flash) -->
+<script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 <title>Page introuvable – Victor Boixeda</title>
-<meta name="description" content="Page introuvable.">
+<meta name="description" content="Cette page n’existe pas ou a été déplacée.">
 <meta name="robots" content="noindex">
 <link rel="preload" href="/assets/fonts/space-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/style.css?v=2026112204">
 </head>
 <body>
 <a class="skip" href="#contenu">Aller au contenu</a>
 
+<!-- En-tête + message occupent exactement un écran ; le pied de page n'apparaît qu'en faisant défiler -->
+<div class="e404-screen">
 <header class="site-header">
   <div class="wrap bar">
     <a class="logo" href="/fr/">Victor Boixeda</a>
     <nav aria-label="Navigation principale">
       <ul>
         <li><a href="/fr/">Accueil</a></li>
-        <li><a href="/fr/projet-startup/">Projet start-up</a></li>
-        <li><a href="/fr/projet-sea-of-thieves/">Sea of Thieves</a></li>
+        <li><a href="/fr/la-frequence-du-vivant/">La Fréquence du Vivant</a></li>
+        <li><a href="/fr/sea-of-thieves-france/">Sea of Thieves France</a></li>
+        <li><a href="/fr/autres-experiences/">Autres expériences</a></li>
         <li><a href="/fr/cv-contact/">CV et contact</a></li>
       </ul>
     </nav>
-    <p class="lang"><span aria-current="true">FR</span> / <a href="/en/" hreflang="en" lang="en">EN</a></p>
+    <div class="tools">
+      <p class="lang"><span aria-current="true">FR</span> / <a href="/en/" hreflang="en" lang="en">EN</a></p>
+      <button type="button" class="theme" data-theme-toggle hidden>
+        <svg class="stroke i-moon" aria-hidden="true" focusable="false"><use href="/assets/svg/sprite.svg#moon"/></svg><svg class="stroke i-sun" aria-hidden="true" focusable="false"><use href="/assets/svg/sprite.svg#sun"/></svg><span class="theme-l">Mode sombre</span>
+      </button>
+    </div>
   </div>
 </header>
 
-<main id="contenu" class="page">
-  <div class="wrap">
-    <p class="meta meta--tag">Erreur 404</p>
-    <h1>Page introuvable</h1>
-    <p class="t-desc">Cette adresse ne mène à aucune page du site.</p>
-    <a class="guide" href="/fr/"><svg class="stroke" aria-hidden="true" focusable="false"><use href="/assets/svg/sprite.svg##arrow-straight" width="100%" height="100%"/></svg><span>Retourner à l'accueil</span></a>
+<main id="contenu" class="e404" tabindex="-1">
+  <div class="e404-stage">
+    <!-- Dessins à la main autour du message (décoratifs) -->
+    <svg class="stroke e404-d d--warn" aria-hidden="true" focusable="false"><use href="/assets/svg/sprite.svg#warn"/></svg>
+    <svg class="stroke e404-d d--question" aria-hidden="true" focusable="false"><use href="/assets/svg/sprite.svg#question"/></svg>
+    <svg class="stroke e404-d d--cone" aria-hidden="true" focusable="false"><use href="/assets/svg/sprite.svg#cone"/></svg>
+
+    <div class="e404-core">
+      <p class="e404-num"><span class="sr">Erreur </span>404<svg class="stroke e404-spark" aria-hidden="true" focusable="false"><use href="/assets/svg/sprite.svg#spark"/></svg></p>
+      <!-- TEXTE -->
+      <h1>Cette page s’est perdue en chemin</h1>
+      <p class="t-lead">Pas d’inquiétude, rien n’est cassé de votre côté. L’adresse est peut-être mal saisie, ou la page a été déplacée.</p>
+      <div class="e404-go">
+        <p class="hand e404-hint" aria-hidden="true">Par ici<svg class="stroke" focusable="false"><use href="/assets/svg/sprite.svg#arrow-curve" width="100%" height="100%"/></svg></p>
+        <a class="btn e404-btn" href="/fr/">Retourner à l’accueil</a>
+      </div>
+    </div>
+
+    <svg class="stroke e404-d d--tangle" aria-hidden="true" focusable="false"><use href="/assets/svg/sprite.svg#tangle"/></svg>
   </div>
 </main>
+</div>
 
 <footer class="site-footer">
   <div class="wrap foot">
     <div>
       <a class="logo" href="/fr/">Victor Boixeda</a>
-      <p>Dernière mise à jour : <time datetime="2026-10-30">30 octobre 2026</time></p>
+      <p>Dernière mise à jour&nbsp;: <time datetime="2026-11-20">20 novembre 2026</time></p>
     </div>
     <div>
       <p class="meta">Contact</p>
       <ul>
-        <li><a class="btn" href="/fr/cv-contact/#contact">Afficher l'e-mail</a></li>
-        <li><span class="ph">[LinkedIn]</span></li>
+        <li><a class="btn" href="/fr/cv-contact/#contact">Me contacter</a></li>
       </ul>
     </div>
     <div>
@@ -59,6 +83,6 @@
     </div>
   </div>
 </footer>
-<script src="/assets/js/main.js" defer></script>
+<script src="/assets/js/main.js?v=2026112201" defer></script>
 </body>
 </html>
