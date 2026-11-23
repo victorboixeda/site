@@ -17,6 +17,7 @@
   --s1:.25rem; --s2:.5rem; --s3:1rem; --s4:1.5rem; --s5:2.5rem; --s6:4.5rem; --s7:7rem;
   --r-sm:2px; --r-md:6px;
   --shadow-frame:0 1px 2px rgba(60,48,30,.12),0 10px 24px -10px rgba(60,48,30,.22);
+  --shadow-lift:0 2px 4px rgba(60,48,30,.12),0 22px 40px -14px rgba(60,48,30,.32); /* photo soulevée au survol */
   --shadow-note:0 1px 3px rgba(60,48,30,.18);
   /* Annotations : un seul vocabulaire de trait */
   --stroke:2.2px;
@@ -44,6 +45,7 @@
     --c-blue:#8EB4FF; --c-line:#2E323B; --c-ph:#272B34; --c-tape:rgba(242,232,74,.42);
     --hl-from:84%; --hl-to:97%; --num-from:86%;
     --shadow-frame:0 1px 2px rgba(0,0,0,.4),0 12px 28px -12px rgba(0,0,0,.7);
+    --shadow-lift:0 2px 4px rgba(0,0,0,.45),0 24px 44px -14px rgba(0,0,0,.85);
     --shadow-note:0 1px 3px rgba(0,0,0,.5);
     --shadow-bar:0 -8px 18px -12px rgba(0,0,0,.7);
     color-scheme:dark;
@@ -54,6 +56,7 @@
   --c-blue:#8EB4FF; --c-line:#2E323B; --c-ph:#272B34; --c-tape:rgba(242,232,74,.42);
   --hl-from:84%; --hl-to:97%; --num-from:86%;
   --shadow-frame:0 1px 2px rgba(0,0,0,.4),0 12px 28px -12px rgba(0,0,0,.7);
+  --shadow-lift:0 2px 4px rgba(0,0,0,.45),0 24px 44px -14px rgba(0,0,0,.85);
   --shadow-note:0 1px 3px rgba(0,0,0,.5);
   --shadow-bar:0 -8px 18px -12px rgba(0,0,0,.7);
   color-scheme:dark;
@@ -266,7 +269,7 @@ h3{font:700 var(--fs-h3)/1.2 var(--f-title);letter-spacing:-.01em;color:var(--c-
 
 /* En-tête La Fréquence du Vivant : recto posé sur le verso */
 .stack{position:relative;display:grid}
-.stack>.frame{grid-area:1/1;width:76%;padding-bottom:.9rem}
+.stack>.frame{grid-area:1/1;align-self:start;width:76%;padding-bottom:.9rem} /* start : le verso garde la hauteur de son image au lieu de s'étirer sur celle du recto décalé */
 .stack-back{justify-self:end;transform:rotate(4deg)}
 .stack-front{justify-self:start;margin-top:24%;transform:rotate(-3deg);z-index:1}
 .stack .stack-front{padding-bottom:2.8rem}
@@ -464,7 +467,7 @@ html.is-en .l-fr,html:not(.is-en) .l-en{display:none!important}
 .e404-stage{position:relative;width:min(100%,64rem);padding:var(--s6) clamp(var(--s4),9vw,9rem);text-align:center}
 .e404-core{max-width:36rem;margin-inline:auto;position:relative;z-index:1}
 .e404-num{position:relative;display:inline-block;font:700 clamp(6rem,12vw,10rem)/.85 var(--f-title);letter-spacing:-.04em;color:var(--c-blue);background:linear-gradient(transparent var(--num-from),var(--c-hl) var(--num-from) 94%,transparent 94%);padding-inline:.12em}
-.e404-spark{position:absolute;top:-.9rem;right:-2.4rem;width:2.6rem;height:2rem}
+.e404-spark{position:absolute;top:-1.5rem;right:-1.6rem;width:2.1rem;height:2.9rem} /* éventail tourné vers le 404 */
 .e404 h1{font-size:clamp(2rem,3.4vw,3rem);line-height:1.1;margin-top:var(--s5)}
 .e404 .t-lead{margin:var(--s3) auto 0;max-width:32rem}
 .e404-go{position:relative;display:inline-block;margin-top:calc(var(--s5) + 1rem)}
@@ -654,7 +657,7 @@ html.is-en .l-fr,html:not(.is-en) .l-en{display:none!important}
   .e404{padding:var(--s3) 0}
   .e404-stage{padding:4.5rem 1.25rem var(--s3)}
   .e404-num{font-size:5.5rem}
-  .e404-spark{right:-1.8rem;width:2rem;height:1.6rem}
+  .e404-spark{top:-1.2rem;right:-1.4rem;width:1.4rem;height:1.9rem}
   .e404 h1{margin-top:var(--s4)}
   .e404-hint{display:none}
   .e404-btn{width:100%;max-width:20rem}
@@ -668,6 +671,26 @@ html.is-en .l-fr,html:not(.is-en) .l-en{display:none!important}
  * plus de flash blanc ni de police qui saute entre deux pages (Chrome, Edge, Opera, Safari récents ; ailleurs, rien ne change). */
 @view-transition{navigation:auto}
 ::view-transition-old(root),::view-transition-new(root){animation-duration:.18s}
+/* Mobile : pas de reflet bleu au toucher des liens du menu (les clics restent libres). */
+.site-header{-webkit-tap-highlight-color:transparent}
+
+/* ===== Animations : deux seulement =====
+ * 1. Survol d'une photo : le cadre se soulève et se redresse un peu, comme une photo qu'on prend en main.
+ *    « translate » et « rotate » s'ajoutent à l'inclinaison de départ (transform) sans l'écraser.
+ *    Le sens du redressement dépend de l'inclinaison de chaque cadre (--lift-rot).
+ *    Souris uniquement (pas au toucher), et rien si le visiteur a demandé moins d'animations. */
+.frame{--lift-rot:1deg;translate:0;rotate:0deg} /* valeurs neutres de départ : rien ne change d'empilement au moment du survol */
+.frame--b,.stack-back{--lift-rot:-1deg}
+@media (hover:hover) and (prefers-reduced-motion:no-preference){
+  .frame{transition:translate .3s ease,rotate .3s ease,box-shadow .3s ease}
+  .frame:hover:not(:has(iframe)){translate:0 -.4rem;rotate:var(--lift-rot);box-shadow:var(--shadow-lift);z-index:2} /* une vidéo en lecture ne bouge pas */
+}
+/* 2. Défilement : les photos montent en fondu la première fois qu'elles entrent à l'écran, une seule fois par page.
+ *    main.js pose .reveal sur les images encore hors de l'écran au chargement, puis .is-in quand elles arrivent,
+ *    et retire les deux à la fin : l'image retrouve ses réglages normaux (survol compris).
+ *    Sans JavaScript, ou avec « moins d'animations », les images s'affichent simplement. */
+.reveal{opacity:0;translate:0 2.5rem}
+.reveal.is-in{opacity:1;translate:0;transition:opacity .7s ease,translate .7s cubic-bezier(.2,.7,.2,1)}
 
 /* ===== Phase 3 : accessibilité ===== */
 main:focus{outline:none} /* cible du lien d'évitement : pas de cadre sur toute la page */

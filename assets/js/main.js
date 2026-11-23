@@ -47,6 +47,38 @@
   sync();
 })();
 
+/* Clics rapides entre deux pages : pendant le fondu, un clic peut tomber sur la page entière
+ * et le navigateur la sélectionne en bleu clair (le flash). On bloque seulement cette sélection,
+ * jamais le clic : la sélection normale d'un texte reste possible partout. */
+document.addEventListener('selectstart', function (e) {
+  if (e.target === document.documentElement || document.activeViewTransition) e.preventDefault();
+});
+
+/* Apparition au défilement : une seule fois par page (pas de replay en remontant / redescendant).
+ * Les images déjà visibles au chargement ne sont jamais cachées : elles s'affichent tout de suite. */
+(function () {
+  if (!('IntersectionObserver' in window)) return;
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      var el = e.target;
+      io.unobserve(el);
+      el.classList.add('is-in');
+      el.addEventListener('transitionend', function done(ev) {
+        if (ev.target !== el || ev.propertyName !== 'opacity') return;
+        el.removeEventListener('transitionend', done);
+        el.classList.remove('reveal', 'is-in');
+      });
+    });
+  }, { rootMargin: '0px 0px -10% 0px' });
+  document.querySelectorAll('.frame, .next-card').forEach(function (el) {
+    if (el.getBoundingClientRect().top < window.innerHeight) return; /* déjà à l'écran */
+    el.classList.add('reveal');
+    io.observe(el);
+  });
+})();
+
 /* Révéler l'e-mail : l'adresse n'existe pas en clair dans le HTML. */
 document.querySelectorAll('[data-reveal]').forEach(function (b) {
   b.addEventListener('click', function () {
