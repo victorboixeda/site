@@ -27,7 +27,7 @@
 <link rel="preload" href="/assets/fonts/space-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/caveat-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/css/style.css?v=2026112304">
+<link rel="stylesheet" href="/assets/css/style.css?v=2026112701">
 </head>
 <body>
 <a class="skip" href="#contenu">Aller au contenu</a>
@@ -108,7 +108,7 @@
           <div><dt>de réponses favorables en prospection</dt><dd>9&nbsp;%</dd></div>
           <div><dt>e-mails de prospection envoyés</dt><dd>~120</dd></div>
           <div><dt>plaquettes de vente rédigées</dt><dd>7</dd></div>
-          <div><dt>flyers</dt><dd>2</dd></div>
+          <div><dt>flyers créés</dt><dd>2</dd></div>
         </dl>
       </div>
       <!-- TEXTE -->
@@ -119,7 +119,7 @@
   <!-- 3. Ma part précise : registre (responsable / avec l'équipe) -->
   <section class="blk blk--paper" aria-labelledby="t-part">
     <div class="wrap">
-      <span class="circled"><h2 id="t-part">Ma part précise</h2><svg class="stroke" aria-hidden="true" focusable="false"><use href="/assets/svg/sprite.svg#oval" width="100%" height="100%"/></svg></span>
+      <span class="circled"><h2 id="t-part">Ma contribution</h2><svg class="stroke" aria-hidden="true" focusable="false"><use href="/assets/svg/sprite.svg#oval" width="100%" height="100%"/></svg></span>
       <ol class="ledger">
         <li>
           <h3>Supports de vente</h3>
@@ -193,14 +193,16 @@
   </section>
 
   <!-- 6. Bilan + recommandation -->
-  <section class="blk blk--paper" aria-label="Bilan et recommandation">
+  <!-- RECOMMANDATION EN STOCK : masquée tant qu'elle n'est pas reçue. Pour l'afficher : retirer « hidden » du 2e bloc
+       et remettre aria-label="Bilan et recommandation". La mise en page en deux colonnes revient seule. -->
+  <section class="blk blk--paper" aria-label="Bilan">
     <div class="wrap bilan">
       <div>
         <h2>Ce que j’en retiens</h2>
         <!-- TEXTE -->
         <p>Ce stage a confirmé mon goût pour la création et le marketing. J’y ai découvert une capacité de négociation que je dois encore travailler, et l’envie d’explorer plusieurs domaines du marketing avant de me spécialiser.</p>
       </div>
-      <div>
+      <div hidden>
         <h2>Recommandation</h2>
         <!-- TEXTE : recommandation de Laurent Tripied, à intégrer quand elle sera reçue (avec son accord) -->
         <blockquote class="quote"><p>[Recommandation à venir]</p><footer class="meta">[Nom, poste, entreprise]</footer></blockquote>

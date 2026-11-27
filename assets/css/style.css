@@ -83,6 +83,12 @@ strong{font-weight:600}
 .skip{position:absolute;left:var(--s3);top:-4rem;background:var(--c-yellow);color:var(--c-on-accent);padding:var(--s2) var(--s3);font-weight:600;z-index:10}
 .skip:focus{top:var(--s3)}
 
+/* Corps de texte et citations justifiés. Titres, étiquettes, chiffres et notes manuscrites restent alignés à gauche.
+ * La césure automatique (selon la langue de la page) évite les grands blancs entre les mots dans les colonnes étroites. */
+:is(.t-lead,.t-intro,.t-desc,.lede,.figs-note,.next-d),
+:is(.hero3,.hero2,.index,.figs-lead,.ledger,.feature,.steps,.bilan,.case,.zev,.tl,.edu,.x-head,.cm-proof,.split,.ladder,.skills-wrap,.doc) p:not(.meta,.hand,.note,.fig-n,.fig-l,.org,.who,.actions),
+.quote p,.skillset dd,.ticks li,.lessons li{text-align:justify;-webkit-hyphens:auto;hyphens:auto;hyphenate-limit-chars:7 3 3}
+
 /* Traits dessinés (sprite) */
 .stroke{fill:none;stroke:var(--c-blue);stroke-width:var(--stroke);stroke-linecap:round;stroke-linejoin:round;overflow:visible;flex:none}
 .hl{background:linear-gradient(transparent var(--hl-from),var(--c-hl) var(--hl-from) var(--hl-to),transparent var(--hl-to));padding-inline:.35em;margin-inline:-.35em;border-radius:2px 5px 3px 6px}
@@ -332,6 +338,8 @@ h3{font:700 var(--fs-h3)/1.2 var(--f-title);letter-spacing:-.01em;color:var(--c-
 /* Bilan : texte + citation, colonnes inégales */
 .bilan{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:var(--s6);align-items:start}
 .bilan--rev{grid-template-columns:minmax(0,7fr) minmax(0,4fr)}
+.bilan:has(>[hidden]){grid-template-columns:minmax(0,1fr)} /* colonne masquée (recommandation en attente) : le texte reste seul, sur une largeur de lecture */
+.bilan:has(>[hidden]) p{max-width:52rem}
 .bilan h2{margin-bottom:var(--s4)}
 .quote{padding-left:var(--s4);border-left:3px solid var(--c-blue)}
 .quote p{font:500 var(--fs-quote)/1.45 var(--f-title);color:var(--c-text)} /* une seule mise en forme pour toutes les citations */
